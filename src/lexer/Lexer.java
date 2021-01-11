@@ -27,6 +27,8 @@ public class Lexer {
             this.currencies = currencies;
     }
 
+    public Token getToken() { return token; }
+
     public Token getNextToken() throws IOException, TokenException {
         jumpToFirstCharacter();
         readToken();
@@ -77,8 +79,9 @@ public class Lexer {
             token.setTokenType(TokenTypeMatcher.twoSignMatcher.get(character.toString() + codeReader.getCharacter()));
         else if(TokenTypeMatcher.oneSignMatcher.containsKey(character.toString()))
             token.setTokenType(TokenTypeMatcher.oneSignMatcher.get(character.toString()));
-        else
+        else{
             throw new TokenException(token.getLineNumber(), token.getPositionInLine());
+        }
     }
 
     private String getPhrase() throws IOException {

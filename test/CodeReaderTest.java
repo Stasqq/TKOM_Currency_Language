@@ -1,6 +1,6 @@
 import inputReaders.CodeReader;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringReader;

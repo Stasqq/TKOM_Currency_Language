@@ -24,6 +24,7 @@ public final class TokenTypeMatcher {
             put(",", TokenType.COMMA);
             put(".", TokenType.DOT);
             put(";", TokenType.SEMICOLON);
+            put("!", TokenType.NOT);
         }
     };
 
@@ -32,7 +33,6 @@ public final class TokenTypeMatcher {
         {
             put("==", TokenType.EQUAL);
             put("!=", TokenType.UNEQUAL);
-            put("!", TokenType.NOT);
             put("||", TokenType.OR);
             put("&&", TokenType.AND);
             put("<=", TokenType.LESS_OR_EQUAL);

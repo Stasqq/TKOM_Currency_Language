@@ -1,4 +1,4 @@
-import currency.Currency;
+import currency.CurrencyType;
 import errors.CurrenciesFileException;
 import inputReaders.CurrenciesScanner;
 import org.junit.Assert;
@@ -15,16 +15,16 @@ public class CurrenciesScannerTest {
         try{
             CurrenciesScanner currenciesScanner = new CurrenciesScanner("inputs/currencies.txt");
             List<String> currenciesNames = currenciesScanner.readCurrenciesNameList();
-            ArrayList<Currency> currencies = currenciesScanner.readCurrencies();
+            ArrayList<CurrencyType> currencies = currenciesScanner.readCurrencies();
 
             Assert.assertEquals(currenciesNames.size(),6);
 
-            for(currency.Currency currency : currencies)
+            for(CurrencyType currencyType : currencies)
             {
-                System.out.println(currency.getCurrencyShortcut());
+                System.out.println(currencyType.getCurrencyShortcut());
                 for(String currencyName : currenciesNames)
                 {
-                    System.out.print(currency.getRatio(currencyName)+" ");
+                    System.out.print(currencyType.getRatio(currencyName)+" ");
                 }
                 System.out.println();
             }

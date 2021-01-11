@@ -50,4 +50,8 @@ public class Token {
     public void setPositionInLine(int positionInLine) {
         this.positionInLine = positionInLine;
     }
+
+    public String getStringValue() { return stringValue; }
+
+    public BigDecimal getBDecimalValue() { return decimalValue; }
 }

@@ -1,14 +1,12 @@
 package inputReaders;
 
-import currency.Currency;
+import currency.CurrencyType;
 import errors.CurrenciesFileException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
-
-//TODO: obsluga bledow pliku, teraz dziala z zalozeniem poprawnych plikow
 
 public class CurrenciesScanner {
 
@@ -33,13 +31,13 @@ public class CurrenciesScanner {
         return this.currenciesNames;
     }
 
-    public ArrayList<currency.Currency> readCurrencies() throws CurrenciesFileException {
+    public ArrayList<CurrencyType> readCurrencies() throws CurrenciesFileException {
         this.currenciesNumber = currenciesNames.size();
         return readCurrenciesWithRatio(currenciesNames);
     }
 
-    private ArrayList<currency.Currency> readCurrenciesWithRatio(List<String> currenciesNames) throws CurrenciesFileException {
-        ArrayList<currency.Currency> currenciesMap = new ArrayList<>();
+    private ArrayList<CurrencyType> readCurrenciesWithRatio(List<String> currenciesNames) throws CurrenciesFileException {
+        ArrayList<CurrencyType> currenciesMap = new ArrayList<>();
         for(String currencyName: currenciesNames)
         {
             currenciesMap.add(readSingleCurrency(currencyName));
@@ -47,7 +45,7 @@ public class CurrenciesScanner {
         return currenciesMap;
     }
 
-    private currency.Currency readSingleCurrency(String currencyName) throws CurrenciesFileException {
+    private CurrencyType readSingleCurrency(String currencyName) throws CurrenciesFileException {
         HashMap<String, BigDecimal> ratioMap = new HashMap<>();
         if(scanner.next().equals(currencyName))
         {
@@ -60,6 +58,6 @@ public class CurrenciesScanner {
         {
             throw new CurrenciesFileException();
         }
-        return new currency.Currency(currencyName, ratioMap);
+        return new CurrencyType(currencyName, ratioMap);
     }
 }
