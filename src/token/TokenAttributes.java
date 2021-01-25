@@ -14,12 +14,14 @@ public final class TokenAttributes {
     public static List<TokenType> lineTypes = new ArrayList<>() {{
         add(TokenType.INT);
         add(TokenType.DOUBLE);
+        add(TokenType.BOOL);
         add(TokenType.CURRENCY);
         add(TokenType.IF);
         add(TokenType.WHILE);
         add(TokenType.RETURN);
         add(TokenType.ID);
         add(TokenType.PRINT);
+        add(TokenType.AMOUNT);
     }};
 
     public static List<TokenType> expressionTypes = new ArrayList<>() {{

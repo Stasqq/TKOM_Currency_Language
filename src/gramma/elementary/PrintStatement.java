@@ -1,6 +1,7 @@
 package gramma.elementary;
 
 import environment.Environment;
+import errors.EnvironmentException;
 import gramma.NodeType;
 import gramma.interfaces.Expression;
 import gramma.interfaces.Node;
@@ -22,8 +23,16 @@ public class PrintStatement implements Node, Statement {
     }
 
     @Override
-    public StatementOutput execute(Environment environment) {
-        return null;
+    public StatementOutput execute(Environment environment) throws EnvironmentException {
+        StringBuilder sb = new StringBuilder();
+
+        for (Expression exp : arguments) {
+            sb.append(exp.evaluate(environment));
+        }
+
+        System.out.println(sb.toString());
+
+        return new StatementOutput(ReturnStatus.BASIC);
     }
 
     @Override

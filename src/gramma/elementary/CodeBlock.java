@@ -1,6 +1,7 @@
 package gramma.elementary;
 
 import environment.Environment;
+import errors.EnvironmentException;
 import gramma.NodeType;
 import gramma.interfaces.Node;
 import gramma.interfaces.Statement;
@@ -22,8 +23,20 @@ public class CodeBlock implements Node {
         return NodeType.CODE_BLOCK;
     }
 
-    public StatementOutput execute(Environment environment)  {
-        return null;
+    public StatementOutput execute(Environment environment) throws EnvironmentException {
+        for (Statement statement : statements) {
+
+            if (statement.getType() == NodeType.RETURN_LINE) {
+                return statement.execute(environment);
+            }
+
+            StatementOutput output = statement.execute(environment);
+            if (output.isStatusReturn()) {
+                return output;
+            }
+        }
+
+        return new StatementOutput(ReturnStatus.BASIC);
     }
 
     public List<Statement> getStatements() { return statements; }

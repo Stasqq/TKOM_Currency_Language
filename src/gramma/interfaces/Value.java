@@ -1,5 +1,6 @@
 package gramma.interfaces;
 
+import errors.EnvironmentException;
 import gramma.NodeType;
 import gramma.elementary.BoolNode;
 import gramma.elementary.Currency;
@@ -9,7 +10,7 @@ import gramma.elementary.IntNode;
 import java.math.BigDecimal;
 
 public interface Value extends Node {
-    BoolNode isEqual(Value operand);
+    BoolNode isEqual(Value operand) throws EnvironmentException;
 
     static int getIntValue(Value operand) {
         return ((IntNode) operand).getValue();

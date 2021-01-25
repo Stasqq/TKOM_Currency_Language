@@ -109,7 +109,7 @@ public class ParserTest {
     @Test
     public void parsePrimaryNotCondition() throws WrongTokenTypeException, IOException, TokenException {
         Condition expected = new Condition();
-        expected.setNegated(true);
+        expected.setIsNegated(true);
         String in = "!condition";
         initParser(in);
 

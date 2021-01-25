@@ -76,4 +76,18 @@ public class LexerTest {
         Lexer lexer = new Lexer(new StringReader(""), null);
         Assert.assertEquals(TokenType.EOF, lexer.getNextToken().getTokenType());
     }
+
+    @Test
+    public void functionAssingTest() throws IOException, TokenException {
+        ArrayList<String> testList = new ArrayList<>();
+        testList.add("EUR");
+        Lexer lexer = new Lexer(new StringReader("currency = subCurrency(dollars);"), testList);
+        Assert.assertEquals(TokenType.ID, lexer.getNextToken().getTokenType());
+        Assert.assertEquals(TokenType.ASSIGMENT, lexer.getNextToken().getTokenType());
+        Assert.assertEquals(TokenType.ID, lexer.getNextToken().getTokenType());
+        Assert.assertEquals(TokenType.OPEN_ROUND_BRACKET, lexer.getNextToken().getTokenType());
+        Assert.assertEquals(TokenType.ID, lexer.getNextToken().getTokenType());
+        Assert.assertEquals(TokenType.CLOSE_ROUND_BRACKET, lexer.getNextToken().getTokenType());
+        Assert.assertEquals(TokenType.SEMICOLON, lexer.getNextToken().getTokenType());
+    }
 }

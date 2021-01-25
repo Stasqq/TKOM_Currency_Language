@@ -131,20 +131,6 @@ public class Parser {
         }
     }
 
-    AmountStatement amount() throws WrongTokenTypeException, IOException, TokenException {
-        AmountStatement amountStatement = new AmountStatement();
-
-        getNextToken(TokenType.OPEN_ROUND_BRACKET);
-
-        if (!getOptionalToken(TokenType.CLOSE_ROUND_BRACKET)) {
-            amountStatement.addCurrency(expression());
-        }
-
-        getNextToken(TokenType.SEMICOLON);
-
-        return amountStatement;
-    }
-
     DeclarationStatement declarationLine() throws WrongTokenTypeException, IOException, TokenException {
         DeclarationStatement declarationStatement = new DeclarationStatement(getToken().getStringValue(),
                 getNextToken(TokenType.ID).getStringValue());
@@ -282,8 +268,6 @@ public class Parser {
         switch (getToken().getTokenType()) {
             case PRINT:
                 return print();
-            case AMOUNT:
-                return amount();
             case ID:
                 return assignOrFunctionCallStatement();
             case IF:
@@ -294,6 +278,7 @@ public class Parser {
                 return returnStatement();
             case INT:
             case DOUBLE:
+            case BOOL:
             case CURRENCY:
                 return declarationLine();
             default:
@@ -302,7 +287,7 @@ public class Parser {
         }
     }
 
-    ReturnStatement returnStatement() throws WrongTokenTypeException, IOException, TokenException {
+    public ReturnStatement returnStatement() throws WrongTokenTypeException, IOException, TokenException {
         ReturnStatement returnStatement = new ReturnStatement(expression());
 
         getNextToken(TokenType.SEMICOLON);
@@ -436,6 +421,10 @@ public class Parser {
                 else
                     return new Variable(id);
             }
+            case BOOL_TRUE:
+                return new BoolNode(true);
+            case BOOL_FALSE:
+                return new BoolNode(false);
         }
 
         throw new WrongTokenTypeException("Expression wrong token type!");

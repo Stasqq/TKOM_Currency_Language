@@ -1,6 +1,7 @@
 package gramma.elementary;
 
 import environment.Environment;
+import errors.EnvironmentException;
 import gramma.NodeType;
 import gramma.interfaces.Statement;
 
@@ -11,8 +12,19 @@ public class WhileStatement implements Statement {
     private CodeBlock whileBlock;
 
     @Override
-    public StatementOutput execute(Environment environment) {
-        return null;
+    public StatementOutput execute(Environment environment) throws EnvironmentException {
+        StatementOutput output = new StatementOutput(ReturnStatus.BASIC);
+
+        while (((BoolNode) whileCondition.evaluate(environment)).getValue()) {
+            environment.createNewLocalRange();
+            output = whileBlock.execute(environment);
+            if (output.isStatusReturn()) {
+                environment.deleteRange();
+                return output;
+            }
+            environment.deleteRange();
+        }
+        return output;
     }
 
     @Override

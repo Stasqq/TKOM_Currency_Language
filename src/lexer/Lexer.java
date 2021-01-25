@@ -107,11 +107,11 @@ public class Lexer {
     private String getString() throws IOException, TokenException {
         do{
             readToString();
-        }while((Character.isLetterOrDigit(character) || Character.isWhitespace(character)) && character != '"');
+        }while(Character.isDefined(character) && character != '"');
         string += character;
 
         if(isStringCorrect())
-            return string;
+            return string.substring(1,string.length()-1);
         else
             throw new TokenException(token.getLineNumber(), token.getPositionInLine());
     }
@@ -136,7 +136,7 @@ public class Lexer {
 
     private boolean isStringCorrect()
     {
-        return string.charAt(string.length() - 1) != '"';
+        return string.charAt(string.length() - 1) == '"';
     }
 
 }
